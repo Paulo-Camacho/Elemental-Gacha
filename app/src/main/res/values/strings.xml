@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">myDemoApp</string>
+    <string name="roll">Roll</string>
+    <string name="collections">Collections</string>
+    <string name="premium">Buy Premium</string>
+    <string name="logout">Logout</string>
 </resources>

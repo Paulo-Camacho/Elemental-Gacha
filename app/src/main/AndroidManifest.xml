@@ -16,6 +16,7 @@
             android:exported="false" />
         <activity
             android:name=".PremiumUserLandingPageActivity"
+            android:name=".rollingActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
