@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyDemoApp">
         <activity
+            android:name=".ViewCollectionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PremiumUserLandingPageActivity"
             android:name=".rollingActivity"
             android:exported="false" />
         <activity
