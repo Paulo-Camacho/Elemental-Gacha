@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyDemoApp">
         <activity
-            android:name=".rollingActivity"
+            android:name=".RollingActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
