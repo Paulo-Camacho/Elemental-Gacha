@@ -12,7 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyDemoApp">
         <activity
-            android:name=".RollingActivity"
+            android:name=".SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewCollectionActivity"
+            android:exported="false" /> <!-- Each activity gets its own tag -->
+        <activity
+            android:name=".PremiumUserLandingPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".rollingActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
