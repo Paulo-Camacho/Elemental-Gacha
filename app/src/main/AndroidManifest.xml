@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyDemoApp">
         <activity
+            android:name=".AdminEditPullRateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminLandingPageActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
