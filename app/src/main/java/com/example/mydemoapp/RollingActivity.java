@@ -8,7 +8,12 @@ import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
+/**
+ * the page to roll on
+ * Users can: roll to add to thier collection
+ * @author Nicholas Dimitriou
+ * @since 3 - Nov - 2025
+ */
 import com.example.mydemoapp.databinding.ActivityRollingBinding;
 
 public class RollingActivity extends AppCompatActivity {
