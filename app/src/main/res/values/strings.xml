@@ -13,4 +13,5 @@
     <string name="login">Login</string>
     <string name="admin_tools">Admin Tools</string>
     <string name="admin_login">Admin Login</string>
+    <string name="premuim_login">Premuim login</string>
 </resources>

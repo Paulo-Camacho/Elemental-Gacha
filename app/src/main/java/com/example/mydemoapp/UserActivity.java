@@ -35,6 +35,27 @@ public class UserActivity extends AppCompatActivity {
                 startActivity(MainActivity.mainActivityFactory(getApplicationContext()));
             }
         });
+        binding.collectionMainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(ViewCollectionActivity.viewCollectionIntentFactory(getApplicationContext()));
+            }
+        });
+        binding.premuimMainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(PremiumUserLandingPageActivity.premiumUserIntentFactory(getApplicationContext()));
+            }
+        });
+        binding.adminToolsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(AdminLandingPageActivity.AdminLandingPageActivityIntentFactory((getApplicationContext())));
+            }
+        });
+
+
+
     }
     static Intent userActivityFactory(Context context){
         Intent intent = new Intent(context, UserActivity.class);
