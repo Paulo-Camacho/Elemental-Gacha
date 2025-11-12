@@ -22,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(UserActivity.userActivityFactory(getApplicationContext()));
             }
         });
+        binding.loginAdminButtonMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(UserActivity.userActivityFactory(getApplicationContext()));
+            }
+        });
     }
     static Intent mainActivityFactory(Context context){
         Intent intent = new Intent(context, MainActivity.class);

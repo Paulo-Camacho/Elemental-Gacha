@@ -12,4 +12,5 @@
     <string name="createaccount">createAccount</string>
     <string name="login">Login</string>
     <string name="admin_tools">Admin Tools</string>
+    <string name="admin_login">Admin Login</string>
 </resources>
