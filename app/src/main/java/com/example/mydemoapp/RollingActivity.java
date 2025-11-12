@@ -29,7 +29,7 @@ public class RollingActivity extends AppCompatActivity {
         binding.backButtonRoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserActivity.userActivityFactory(getApplicationContext());
+                startActivity(UserActivity.userActivityFactory(getApplicationContext()));
             }
         });
     }

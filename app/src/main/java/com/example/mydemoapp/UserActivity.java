@@ -26,7 +26,7 @@ public class UserActivity extends AppCompatActivity {
         binding.rollMainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RollingActivity.rollingActivityFactory(getApplicationContext());
+                startActivity(RollingActivity.rollingActivityFactory(getApplicationContext()));
             }
             });
     }
