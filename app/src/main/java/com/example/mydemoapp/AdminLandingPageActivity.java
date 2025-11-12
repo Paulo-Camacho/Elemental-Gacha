@@ -3,16 +3,37 @@ package com.example.mydemoapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mydemoapp.databinding.ActivityAdminLandingPageBinding;
+
 public class AdminLandingPageActivity extends AppCompatActivity {
+    private ActivityAdminLandingPageBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_admin_landing_page);
+        binding = ActivityAdminLandingPageBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        binding.AdminRollButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(AdminEditPullRateActivity.AdminEditPullRateActivityIntentFactory(getApplicationContext()));
+            }
+        });
+
+        // TODO: Make this go to login
+        binding = ActivityAdminLandingPageBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        binding.AdminLogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(AdminEditPullRateActivity.AdminEditPullRateActivityIntentFactory(getApplicationContext()));
+            }
+        });
     }
 
     static Intent AdminLandingPageActivityIntentFactory(Context context) {
