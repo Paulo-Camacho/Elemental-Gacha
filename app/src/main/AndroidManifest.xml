@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyDemoApp">
         <activity
+            android:name=".AdminEditPullRateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminLandingPageActivity"
             android:name=".UserActivity"
             android:exported="false" />
         <activity
