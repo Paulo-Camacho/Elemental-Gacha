@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyDemoApp">
         <activity
+            android:name=".UserActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignupActivity"
             android:exported="false" />
         <activity
@@ -21,7 +24,7 @@
             android:name=".PremiumUserLandingPageActivity"
             android:exported="false" />
         <activity
-            android:name=".rollingActivity"
+            android:name=".RollingActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
