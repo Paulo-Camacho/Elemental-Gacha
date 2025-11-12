@@ -9,4 +9,7 @@
     <string name="enter_username">Enter username</string>
     <string name="all_animals_are_equal_but_some_animals_are_more_equal_than_others">All animals are equal, but some animals are more equal than others</string>
     <string name="enter_password">Enter password</string>
+    <string name="createaccount">createAccount</string>
+    <string name="login">Login</string>
+    <string name="admin_tools">Admin Tools</string>
 </resources>
