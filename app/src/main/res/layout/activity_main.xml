@@ -47,13 +47,13 @@
         android:id="@+id/premuimButtonMain"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="60dp"
         android:text="@string/premuim_login"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/newUserButtonMain" />
+        app:layout_constraintTop_toBottomOf="@+id/loginAdminButtonMain" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
