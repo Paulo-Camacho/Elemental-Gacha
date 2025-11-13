@@ -5,7 +5,6 @@ import androidx.room.PrimaryKey;
 
 import com.example.mydemoapp.Database.GachaDatabase;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity(tableName = GachaDatabase.GACHA_TABLE)
@@ -16,12 +15,14 @@ public class GachaItem {
 
     private String itemName;
     private String rarity;
-    private LocalDate datePulled;
+    //TODO: Implement date pulled differently
+    private String datePulled;
 
     public GachaItem(String itemName, String rarity) {
         this.itemName = itemName;
         this.rarity = rarity;
-        this.datePulled = LocalDate.now();
+        // Date pulled is an empty string right now
+        this.datePulled = "";
     }
 
     @Override
@@ -30,7 +31,7 @@ public class GachaItem {
                 "id=" + id +
                 ", itemName='" + itemName + '\'' +
                 ", rarity='" + rarity + '\'' +
-                ", datePulled=" + datePulled +
+                ", datePulled='" + datePulled + '\'' +
                 '}';
     }
 
@@ -39,7 +40,10 @@ public class GachaItem {
         if (this == o) return true;
         if (!(o instanceof GachaItem)) return false;
         GachaItem that = (GachaItem) o;
-        return id == that.id && Objects.equals(itemName, that.itemName) && Objects.equals(rarity, that.rarity) && Objects.equals(datePulled, that.datePulled);
+        return id == that.id &&
+                Objects.equals(itemName, that.itemName) &&
+                Objects.equals(rarity, that.rarity) &&
+                Objects.equals(datePulled, that.datePulled);
     }
 
     @Override
@@ -56,6 +60,6 @@ public class GachaItem {
     public String getRarity() { return rarity; }
     public void setRarity(String rarity) { this.rarity = rarity; }
 
-    public LocalDate getDatePulled() { return datePulled; }
-    public void setDatePulled(LocalDate datePulled) { this.datePulled = datePulled; }
+    public String getDatePulled() { return datePulled; }
+    public void setDatePulled(String datePulled) { this.datePulled = datePulled; }
 }
