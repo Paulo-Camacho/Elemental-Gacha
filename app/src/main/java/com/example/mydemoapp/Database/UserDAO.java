@@ -1,5 +1,6 @@
 package com.example.mydemoapp.Database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -27,4 +28,6 @@ public interface UserDAO {
 
     @Query("SELECT * FROM " + GachaDatabase.USER_TABLE + " WHERE username = :username LIMIT 1")
     User getUserByUsername(String username);
+    @Query("SELECT * FROM " + GachaDatabase.USER_TABLE+ " WHERE id == :userId")
+    User getUserByUserId(int userId);
 }
