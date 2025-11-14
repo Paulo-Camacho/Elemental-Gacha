@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyDemoApp">
         <activity
+<<<<<<< HEAD
             android:name=".AdminEditPullRateActivity"
             android:exported="false" />
         <activity
@@ -19,6 +20,9 @@
             android:exported="false"/>
         <activity
             android:name=".UserActivity"
+=======
+            android:name=".LoginActivity"
+>>>>>>> database-paulo
             android:exported="false" />
         <activity
             android:name=".SignupActivity"

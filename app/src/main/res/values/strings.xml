@@ -4,12 +4,17 @@
     <string name="collections">Collections</string>
     <string name="premium">Buy Premium</string>
     <string name="logout">Logout</string>
-    <string name="add_user">Add User</string>
+    <string name="add_user">Sign up</string>
     <string name="back">Back</string>
     <string name="enter_username">Enter username</string>
     <string name="all_animals_are_equal_but_some_animals_are_more_equal_than_others">All animals are equal, but some animals are more equal than others</string>
     <string name="enter_password">Enter password</string>
+<<<<<<< HEAD
     <string name="createaccount">createAccount</string>
     <string name="login">Login</string>
     <string name="admin_tools">Admin Tools</string>
+=======
+    <string name="login">Login</string>
+    <string name="four_legs_good_two_legs_better">Four legs good, two legs better!</string>
+>>>>>>> database-paulo
 </resources>
