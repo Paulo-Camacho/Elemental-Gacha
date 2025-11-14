@@ -4,7 +4,7 @@
     <string name="collections">Collections</string>
     <string name="premium">Buy Premium</string>
     <string name="logout">Logout</string>
-    <string name="add_user">Add User</string>
+    <string name="add_user">Sign Up</string>
     <string name="back">Back</string>
     <string name="enter_username">Enter username</string>
     <string name="all_animals_are_equal_but_some_animals_are_more_equal_than_others">All animals are equal, but some animals are more equal than others</string>
@@ -14,4 +14,5 @@
     <string name="admin_tools">Admin Tools</string>
     <string name="admin_login">Admin Login</string>
     <string name="premuim_login">Premuim login</string>
+    <string name="four_legs_good_two_legs_better">four legs good two legs better</string>
 </resources>

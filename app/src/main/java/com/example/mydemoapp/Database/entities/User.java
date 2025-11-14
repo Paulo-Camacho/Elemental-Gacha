@@ -16,6 +16,7 @@ public class User {
     private String username;
     private String password;
     private boolean isAdmin;
+    private boolean isPremuim;
 
     public User(String username, String password) {
         this.username = username;
@@ -35,6 +36,8 @@ public class User {
 
     public boolean isAdmin() { return isAdmin; }
     public void setAdmin(boolean admin) { isAdmin = admin; }
+    public boolean isPremuim() { return isAdmin; }
+    public void setPremuim(boolean premuim) { isPremuim = premuim; }
 
     @Override
     public boolean equals(Object o) {
