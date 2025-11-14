@@ -25,14 +25,6 @@ public class User {
         this.isPremium = false;
     }
 
-    public boolean isPremium() {
-        return isPremium;
-    }
-
-    public void setPremium(boolean premium) {
-        isPremium = premium;
-    }
-
     // GETTERS + SETTERS
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -43,8 +35,10 @@ public class User {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public boolean isAdmin() { return isAdmin; }
+    public boolean getIsAdmin() { return isAdmin; }
     public void setAdmin(boolean admin) { isAdmin = admin; }
+    public boolean getIsPremium() { return isPremium; }
+    public void setPremium(boolean premium) { isPremium = premium; }
 
     @Override
     public boolean equals(Object o) {

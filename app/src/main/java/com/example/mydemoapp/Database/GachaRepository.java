@@ -3,6 +3,8 @@ package com.example.mydemoapp.Database;
 import android.app.Application;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.mydemoapp.Database.entities.GachaItem;
 import com.example.mydemoapp.Database.entities.User;
 import com.example.mydemoapp.MainActivity;
@@ -70,5 +72,13 @@ public class GachaRepository {
 
     public UserDAO getUserDAO() {
         return userDAO;
+    }
+
+    public LiveData<User> getUserByUserID(int loggedInUserID) {
+        return userDAO.getUserByUserId(loggedInUserID);
+    }
+
+    public LiveData<User> getUserByUsername(String username) {
+        return userDAO.getUserByUsername(username);
     }
 }
