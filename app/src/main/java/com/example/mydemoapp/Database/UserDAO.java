@@ -27,7 +27,7 @@ public interface UserDAO {
     void deleteAll();
 
     @Query("SELECT * FROM " + GachaDatabase.USER_TABLE + " WHERE username = :username LIMIT 1")
-    User getUserByUsername(String username);
+    LiveData<User> getUserByUsername(String username);
     @Query("SELECT * FROM " + GachaDatabase.USER_TABLE+ " WHERE id == :userId")
-    User getUserByUserId(int userId);
+    LiveData<User> getUserByUserId(int userId);
 }

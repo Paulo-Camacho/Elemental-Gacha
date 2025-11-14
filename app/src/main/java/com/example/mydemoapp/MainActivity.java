@@ -18,10 +18,14 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "GACHA_TEST";
-
+    private static final int LOGGED_OUT = -1;
     public static Intent mainActivityFactory(Context context) {
+        try{
             Intent intent = new Intent(context, MainActivity.class);
             return intent;
+        }catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         binding.loginButtonMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,4 +61,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
     }
+
 }
