@@ -31,7 +31,8 @@
         app:layout_constraintBottom_toTopOf="@+id/premiumUserViewCollectionButton"
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/Raspberry"/>
 
     <Button
         android:id="@+id/premiumUserViewCollectionButton"
@@ -42,7 +43,8 @@
         android:text="View Collections"
         app:layout_constraintBottom_toTopOf="@+id/premiumUserLogoutButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/Raspberry"/>
 
     <Button
         android:id="@+id/premiumUserLogoutButton"
@@ -52,7 +54,8 @@
         android:text="Logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/premiumUserViewCollectionButton" />
+        app:layout_constraintTop_toBottomOf="@+id/premiumUserViewCollectionButton"
+        android:backgroundTint="@color/Raspberry"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
