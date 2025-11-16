@@ -61,6 +61,8 @@ public class LoginActivity extends AppCompatActivity {
         userObserver.observe(this,user -> {
             if(user != null){
                 if(password.equals(user.getPassword())){
+                    Integer temp = user.getId();
+                    toastMaker(String.valueOf(temp));
                     startActivity(UserActivity.userActivityFactory(getApplicationContext(), user.getId()));
                 }else{
                     toastMaker("Invalid password.");

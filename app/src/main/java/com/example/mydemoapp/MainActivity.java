@@ -65,15 +65,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
 
-
-        //hard coding including users
-        User testuser1 = new User("testuser1","testuser1");
-        User admin2 = new User("admin2","admin2");
-        admin2.setAdmin(true);
-        repo.insertUser(testuser1);
-        repo.insertUser(admin2);
-
-
         loginUser(savedInstanceState);
 
         if(loggedInUserID != LOGGED_OUT){
