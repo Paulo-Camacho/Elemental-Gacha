@@ -23,10 +23,11 @@ public class RollingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityRollingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         binding.backButtonRoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(UserActivity.userActivityFactory(getApplicationContext()));
+                startActivity(UserActivity.userActivityFactory(getApplicationContext(),1));
             }
         });
     }

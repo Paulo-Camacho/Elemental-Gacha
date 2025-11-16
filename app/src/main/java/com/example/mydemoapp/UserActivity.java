@@ -17,6 +17,7 @@ import com.example.mydemoapp.databinding.ActivityUserLandingPageBinding;
  */
 public class UserActivity extends AppCompatActivity {
 
+    private static final String USER_ACTIVITY_USER_ID = "com.example.mydemoapp.USER_ACTIVITY_USER_ID";
     private ActivityUserLandingPageBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +58,9 @@ public class UserActivity extends AppCompatActivity {
 
 
     }
-    static Intent userActivityFactory(Context context){
+    static Intent userActivityFactory(Context context, Integer userID){
         Intent intent = new Intent(context, UserActivity.class);
+        intent.putExtra(USER_ACTIVITY_USER_ID, userID);
         return intent;
     }
 }

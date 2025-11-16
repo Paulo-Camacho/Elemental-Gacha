@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         loginUser(savedInstanceState);
 
         if(loggedInUserID != LOGGED_OUT){
-            Intent intent = UserActivity.userActivityFactory(getApplicationContext());
+            Intent intent = UserActivity.userActivityFactory(getApplicationContext(), loggedInUserID);
             startActivity(intent);
         }
     }
