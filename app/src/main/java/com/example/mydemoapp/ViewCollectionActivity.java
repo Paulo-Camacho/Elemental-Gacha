@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.LiveData;
 
+import com.example.mydemoapp.Database.GachaRepository;
 import com.example.mydemoapp.Database.entities.User;
 import com.example.mydemoapp.databinding.ActivityViewCollectionBinding;
 
@@ -27,6 +29,7 @@ public class ViewCollectionActivity extends AppCompatActivity {
     private static final String COLLECTION_ACTIVITY_USER_ID = "com.example.mydemoapp.COLLECTION_ACTIVITY_USER_ID";
     private ActivityViewCollectionBinding binding;
     private int loggedInUserID = LOGGED_OUT;
+    private GachaRepository repo;
 
     private User user;
 
@@ -36,6 +39,23 @@ public class ViewCollectionActivity extends AppCompatActivity {
 
         binding = ActivityViewCollectionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        repo = GachaRepository.getRepository(getApplication());
+
+        //get the logged in user from the intent
+        loggedInUserID = getIntent().getIntExtra(COLLECTION_ACTIVITY_USER_ID,LOGGED_OUT);
+        LiveData<User> userObserver = repo.getUserByUserID(loggedInUserID);
+        userObserver.observe(this, user1 -> {
+            this.user = user1;
+            if(user != null){
+                //set the text to be the username
+                String placeholder = user.getUsername() + "'s Collection";
+                binding.collectionTitleTextView.setText(placeholder);
+            }else{
+                String placeholder = "This user is nonexistent and therefore has no collection.";
+                binding.collectionTitleTextView.setText(placeholder);
+            }
+        });
 
         //TODO: make this send user back to correct landing page
         binding.collectionBackButton.setOnClickListener(new View.OnClickListener() {

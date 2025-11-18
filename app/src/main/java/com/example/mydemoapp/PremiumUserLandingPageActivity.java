@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
@@ -44,7 +45,7 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
             this.user = user1;
             if(user != null){
                 //set the text to be the username
-                String placeholder = "Welcome Premium User: " + user.getUsername();
+                String placeholder = "Welcome Premium User:\n" + user.getUsername();
                 binding.premiumUserTitleTextView.setText(placeholder);
             }else{
                 String placeholder = "User is null";
@@ -70,6 +71,19 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
             }
         });
 
+        binding.noMorePremiumSadEyesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    user.setPremium(false);
+                }catch(NullPointerException e){
+                    toastMaker("User is null");
+                }
+                Intent intent = UserActivity.userActivityFactory(getApplicationContext(),loggedInUserID);
+                startActivity(intent);
+            }
+        });
+
     }
 
     static Intent premiumUserIntentFactory(Context context, int userID){
@@ -90,6 +104,10 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
         updateSharedPreference();
         getIntent().putExtra(PREMIUM_USER_ACTIVITY_USER_ID,LOGGED_OUT);
         startActivity((LoginActivity.loginIntentFactory(getApplicationContext())));
+    }
+
+    private void toastMaker(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
 }
