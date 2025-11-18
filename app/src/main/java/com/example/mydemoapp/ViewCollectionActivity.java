@@ -12,6 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.mydemoapp.Database.entities.User;
 import com.example.mydemoapp.databinding.ActivityViewCollectionBinding;
 
 /**
@@ -22,7 +23,12 @@ import com.example.mydemoapp.databinding.ActivityViewCollectionBinding;
  */
 public class ViewCollectionActivity extends AppCompatActivity {
 
+    private static final int LOGGED_OUT = -1;
+    private static final String COLLECTION_ACTIVITY_USER_ID = "com.example.mydemoapp.COLLECTION_ACTIVITY_USER_ID";
     private ActivityViewCollectionBinding binding;
+    private int loggedInUserID = LOGGED_OUT;
+
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +41,7 @@ public class ViewCollectionActivity extends AppCompatActivity {
         binding.collectionBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = PremiumUserLandingPageActivity.premiumUserIntentFactory(getApplicationContext());
+                Intent intent = PremiumUserLandingPageActivity.premiumUserIntentFactory(getApplicationContext(),loggedInUserID);
                 startActivity(intent);
             }
         });
@@ -43,7 +49,9 @@ public class ViewCollectionActivity extends AppCompatActivity {
 
     }
 
-    static Intent viewCollectionIntentFactory(Context context){
-        return new Intent(context, ViewCollectionActivity.class);
+    static Intent viewCollectionIntentFactory(Context context, int userID){
+        Intent intent = new Intent(context, ViewCollectionActivity.class);
+        intent.putExtra(COLLECTION_ACTIVITY_USER_ID,userID);
+        return intent;
     }
 }
