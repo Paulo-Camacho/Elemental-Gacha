@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private User user;
 
     public static Intent mainActivityFactory(Context context) {
-            Intent intent = new Intent(context, MainActivity.class);
-            return intent;
+        Intent intent = new Intent(context, MainActivity.class);
+        return intent;
     }
 
     @Override
