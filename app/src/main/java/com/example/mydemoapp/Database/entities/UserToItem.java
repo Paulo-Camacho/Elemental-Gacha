@@ -11,15 +11,24 @@ import java.util.Objects;
 public class UserToItem {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private int userToItemID;
 
     private int userId;
+
+    public int getUserToItemID() {
+        return userToItemID;
+    }
+
+    public void setUserToItemID(int userToItemID) {
+        this.userToItemID = userToItemID;
+    }
+
     private int itemId;
 
     @Override
     public String toString() {
         return "UserToItem{" +
-                "id=" + id +
+                "id=" + userToItemID +
                 ", userId=" + userId +
                 ", itemId=" + itemId +
                 '}';
@@ -29,12 +38,12 @@ public class UserToItem {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         UserToItem that = (UserToItem) o;
-        return id == that.id && userId == that.userId && itemId == that.itemId;
+        return userToItemID == that.userToItemID && userId == that.userId && itemId == that.itemId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, itemId);
+        return Objects.hash(userToItemID, userId, itemId);
     }
 
     public UserToItem(int userId, int itemId) {
@@ -43,11 +52,11 @@ public class UserToItem {
     }
 
     public int getId() {
-        return id;
+        return userToItemID;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.userToItemID = id;
     }
 
     public int getUserId() {

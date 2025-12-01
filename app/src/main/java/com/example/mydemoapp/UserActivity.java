@@ -38,6 +38,31 @@ public class UserActivity extends AppCompatActivity {
 
         repo = GachaRepository.getRepository(getApplication());
 
+        LiveData<User> userObserver = repo.getUserByUserID(loggedInUserID);
+        userObserver.observe(this,user -> {
+            this.user = user;
+            Toast.makeText(this,user.toString(),Toast.LENGTH_SHORT);
+            if(user != null){
+                binding.userNameTextView.setText("Welcome "+user.getUsername());
+                if(user.getIsAdmin()){
+                  binding.adminToolsButton.setVisibility(View.VISIBLE);
+                  admin = true;
+                  if(user.getIsPremium()){
+                      toastMaker("you cannot be premium as a admin");
+                      user.setPremium(false);
+
+                  }
+                 }else{
+                    if(user.getIsPremium()){
+                        premium = true;
+                    }
+                  binding.adminToolsButton.setVisibility(View.INVISIBLE);
+                 }
+            }else{
+                user = new User("nullUser","null");
+                binding.userNameTextView.setText("Welcome "+user.getUsername());
+            }
+        });
         // Pull user from the intent
         loggedInUserID = getIntent().getIntExtra(USER_ACTIVITY_USER_ID, LOGGED_OUT);
 
@@ -53,11 +78,10 @@ public class UserActivity extends AppCompatActivity {
         binding.rollMainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(RollingActivity.rollingActivityFactory(getApplicationContext()));
-            }
-        });
-
-        binding.collectionMainButton.setOnClickListener(new View.OnClickListener() {
+                startActivity(RollingActivity.rollingActivityFactory(getApplicationContext(), user.getUserID()));
+                }
+            });
+        binding.logoutMainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(ViewCollectionActivity.viewCollectionIntentFactory(
@@ -71,6 +95,7 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 logout();
+                startActivity(ViewCollectionActivity.viewCollectionIntentFactory(getApplicationContext(), user.getUserID()));
             }
         });
 
@@ -88,9 +113,7 @@ public class UserActivity extends AppCompatActivity {
                     isPremium = true;
                     toastMaker("You are now a premium user.");
                 }
-
-                startActivity(PremiumUserLandingPageActivity
-                        .premiumUserIntentFactory(getApplicationContext(), loggedInUserID));
+                startActivity(PremiumUserLandingPageActivity.premiumUserIntentFactory(getApplicationContext(), user.getUserID()));
             }
         });
 

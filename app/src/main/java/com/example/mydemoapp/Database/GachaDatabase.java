@@ -19,7 +19,7 @@ import com.example.mydemoapp.MainActivity;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {GachaItem.class, User.class, UserToItem.class}, version = 6, exportSchema = false)
+@Database(entities = {GachaItem.class, User.class, UserToItem.class}, version = 8, exportSchema = false)
 //@TypeConverters({LocalDateConverter.class})
 public abstract class GachaDatabase extends RoomDatabase {
 
@@ -47,7 +47,7 @@ public abstract class GachaDatabase extends RoomDatabase {
                                     GachaDatabase.class,
                                     DATABASE_NAME
                             )
-                            .fallbackToDestructiveMigration()
+                            .fallbackToDestructiveMigration(true)
                             .addCallback(addDefaultUsers)
                             .build();
                 }

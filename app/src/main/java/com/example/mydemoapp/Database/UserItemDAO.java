@@ -16,7 +16,7 @@ public interface UserItemDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(UserToItem connection);
 
-    @Query("SELECT * FROM " + GachaDatabase.USER_ITEM_TABLE + " ORDER BY id")
+    @Query("SELECT * FROM " + GachaDatabase.USER_ITEM_TABLE + " ORDER BY userToItemID")
     List<UserToItem> getAllPulls();
     @Query("SELECT itemId FROM " + GachaDatabase.USER_ITEM_TABLE + " WHERE userID = :userId")
     LiveData<List<Integer>> getItemIdByUsers(int userId);

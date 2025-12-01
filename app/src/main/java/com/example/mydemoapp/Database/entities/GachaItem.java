@@ -11,14 +11,22 @@ import java.util.Objects;
 public class GachaItem {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private int itemId;
 
     private String itemName;
     private String url;
     private String rarity;
+
+
     //TODO: Implement date pulled differently
     private String datePulled;
+    public int getItemId() {
+        return itemId;
+    }
 
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
     public GachaItem(String itemName, String rarity, String url) {
         this.itemName = itemName;
         this.rarity = rarity;
@@ -30,7 +38,7 @@ public class GachaItem {
     @Override
     public String toString() {
         return "GachaItem{" +
-                "id=" + id +
+                "id=" + itemId +
                 ", itemName='" + itemName + '\'' +
                 ", rarity='" + rarity + '\'' +
                 ", url="+ url + '\'' +
@@ -43,7 +51,7 @@ public class GachaItem {
         if (this == o) return true;
         if (!(o instanceof GachaItem)) return false;
         GachaItem that = (GachaItem) o;
-        return id == that.id &&
+        return itemId == that.itemId &&
                 Objects.equals(itemName, that.itemName) &&
                 Objects.equals(rarity, that.rarity) &&
                 Objects.equals(url,that.url) &&
@@ -52,11 +60,9 @@ public class GachaItem {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, itemName, rarity, url, datePulled);
+        return Objects.hash(itemId, itemName, rarity, url, datePulled);
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
 
     public String getItemName() { return itemName; }
     public void setItemName(String itemName) { this.itemName = itemName; }

@@ -28,6 +28,6 @@ public interface UserDAO {
 
     @Query("SELECT * FROM " + GachaDatabase.USER_TABLE + " WHERE username = :username LIMIT 1")
     LiveData<User> getUserByUsername(String username);
-    @Query("SELECT * FROM " + GachaDatabase.USER_TABLE+ " WHERE id == :userId")
+    @Query("SELECT * FROM " + GachaDatabase.USER_TABLE+ " WHERE userID == :userId")
     LiveData<User> getUserByUserId(int userId);
 }

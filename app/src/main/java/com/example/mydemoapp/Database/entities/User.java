@@ -10,8 +10,10 @@ import java.util.Objects;
 @Entity(tableName = GachaDatabase.USER_TABLE)
 public class User {
 
+
+
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private int userID;
 
     private String username;
     private String password;
@@ -26,9 +28,13 @@ public class User {
     }
 
     // GETTERS + SETTERS
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getUserID() {
+        return userID;
+    }
 
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
 
@@ -45,7 +51,7 @@ public class User {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return id == user.id &&
+        return userID == user.userID &&
                 isAdmin == user.isAdmin &&
                 Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password);
@@ -53,6 +59,6 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, isAdmin);
+        return Objects.hash(userID, username, password, isAdmin);
     }
 }

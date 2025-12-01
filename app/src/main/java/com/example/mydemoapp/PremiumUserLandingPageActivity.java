@@ -57,7 +57,7 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
         binding.premiumUserRollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = RollingActivity.rollingActivityFactory(getApplicationContext());
+                Intent intent = RollingActivity.rollingActivityFactory(getApplicationContext() , -1);
                 startActivity(intent);
             }
         });
