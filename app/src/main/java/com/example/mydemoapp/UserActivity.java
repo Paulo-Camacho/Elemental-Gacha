@@ -46,7 +46,7 @@ public class UserActivity extends AppCompatActivity {
                 binding.userNameTextView.setText("Welcome "+user.getUsername());
                 if(user.getIsAdmin()){
                   binding.adminToolsButton.setVisibility(View.VISIBLE);
-                  admin = true;
+                    isAdmin = true;
                   if(user.getIsPremium()){
                       toastMaker("you cannot be premium as a admin");
                       user.setPremium(false);
@@ -54,7 +54,7 @@ public class UserActivity extends AppCompatActivity {
                   }
                  }else{
                     if(user.getIsPremium()){
-                        premium = true;
+                        isPremium = true;
                     }
                   binding.adminToolsButton.setVisibility(View.INVISIBLE);
                  }

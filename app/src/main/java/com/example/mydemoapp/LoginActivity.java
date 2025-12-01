@@ -62,13 +62,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (password.equals(user.getPassword())) {
 
-                    saveLoggedInUser(user.getId());
+                    saveLoggedInUser(user.getUserID());
 
                     toastMaker("Login successful!");
 
                     Intent intent = UserActivity.userActivityFactory(
                             getApplicationContext(),
-                            user.getId()
+                            user.getUserID()
                     );
                     startActivity(intent);
                     finish();
