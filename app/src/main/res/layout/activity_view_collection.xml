@@ -31,38 +31,15 @@
         app:layout_constraintTop_toBottomOf="@+id/collectionTitleTextView" />
 
 
-    <ImageView
-        android:id="@+id/temporaryCollectionImageView1"
-        android:layout_width="69dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="25dp"
-        android:contentDescription="Silly Little Star"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:id="@+id/gachaItemDisplayRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/collectionItemsTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/collectionItemsTextView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
-
-    <ImageView
-        android:id="@+id/temporaryCollectionImageView2"
-        android:layout_width="69dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="25dp"
-        android:contentDescription="Silly Little Star"
-        app:layout_constraintTop_toBottomOf="@id/collectionItemsTextView"
-        app:layout_constraintStart_toEndOf="@id/temporaryCollectionImageView1"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
-
-    <ImageView
-        android:id="@+id/temporaryCollectionImageView3"
-        android:layout_width="69dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="25dp"
-        android:contentDescription="Silly Little Star"
-        app:layout_constraintTop_toBottomOf="@id/collectionItemsTextView"
-        app:layout_constraintStart_toEndOf="@id/temporaryCollectionImageView2"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        tools:listitem="@layout/gacha_recycler_item"
+        />
 
     <Button
         android:id="@+id/collectionBackButton"

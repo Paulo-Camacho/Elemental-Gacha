@@ -38,6 +38,14 @@ public class UserActivity extends AppCompatActivity {
 
         repo = GachaRepository.getRepository(getApplication());
 
+        // Pull user from the intent
+        loggedInUserID = getIntent().getIntExtra(USER_ACTIVITY_USER_ID, LOGGED_OUT);
+
+        if (loggedInUserID == LOGGED_OUT) {
+            logout(); // invalid state, force logout
+            return;
+        }
+
         LiveData<User> userObserver = repo.getUserByUserID(loggedInUserID);
         userObserver.observe(this,user -> {
             this.user = user;
@@ -63,13 +71,13 @@ public class UserActivity extends AppCompatActivity {
                 binding.userNameTextView.setText("Welcome "+user.getUsername());
             }
         });
-        // Pull user from the intent
-        loggedInUserID = getIntent().getIntExtra(USER_ACTIVITY_USER_ID, LOGGED_OUT);
-
-        if (loggedInUserID == LOGGED_OUT) {
-            logout(); // invalid state, force logout
-            return;
-        }
+//        // Pull user from the intent
+//        loggedInUserID = getIntent().getIntExtra(USER_ACTIVITY_USER_ID, LOGGED_OUT);
+//
+//        if (loggedInUserID == LOGGED_OUT) {
+//            logout(); // invalid state, force logout
+//            return;
+//        }
 
         loadUserFromDatabase();
 

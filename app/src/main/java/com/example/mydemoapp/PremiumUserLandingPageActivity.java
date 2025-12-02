@@ -57,7 +57,7 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
         binding.premiumUserRollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = RollingActivity.rollingActivityFactory(getApplicationContext() , -1);
+                Intent intent = RollingActivity.rollingActivityFactory(getApplicationContext() , loggedInUserID);
                 startActivity(intent);
             }
         });
@@ -101,7 +101,6 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 
     static Intent premiumUserIntentFactory(Context context, int userID){

@@ -10,7 +10,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
-import com.example.mydemoapp.Database.GachaDatabase;
 import com.example.mydemoapp.Database.GachaRepository;
 import com.example.mydemoapp.Database.entities.User;
 import com.example.mydemoapp.databinding.ActivityMainBinding;

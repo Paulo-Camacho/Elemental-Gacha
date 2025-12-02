@@ -18,4 +18,5 @@
     !</string>
     <string name="preference_file_key">cst338PreferenceFileNameGacha</string>
     <string name="preference_userId_key">cst338PreferenceUserIdKeyGacha</string>
+    <string name="cat_gacha_title">Cat Gacha!</string>
 </resources>

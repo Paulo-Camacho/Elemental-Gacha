@@ -7,10 +7,15 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mydemoapp.Database.GachaRepository;
 import com.example.mydemoapp.Database.entities.User;
 import com.example.mydemoapp.databinding.ActivityViewCollectionBinding;
+import com.example.mydemoapp.viewHolders.GachaAdapter;
+import com.example.mydemoapp.viewHolders.GachaItemViewModel;
 
 /**
  * Collection View
@@ -25,6 +30,7 @@ public class ViewCollectionActivity extends AppCompatActivity {
     private ActivityViewCollectionBinding binding;
     private int loggedInUserID = LOGGED_OUT;
     private GachaRepository repo;
+    private GachaItemViewModel gachaViewModel;
 
     private User user;
     private boolean isPremium = false;
@@ -35,6 +41,13 @@ public class ViewCollectionActivity extends AppCompatActivity {
 
         binding = ActivityViewCollectionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        gachaViewModel = new ViewModelProvider(this).get(GachaItemViewModel.class);
+
+        RecyclerView recyclerView = binding.gachaItemDisplayRecyclerView;
+        final GachaAdapter adapter = new GachaAdapter(new GachaAdapter.GachaItemDiff());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         repo = GachaRepository.getRepository(getApplication());
 
@@ -52,6 +65,10 @@ public class ViewCollectionActivity extends AppCompatActivity {
                 String placeholder = "This user is nonexistent and therefore has no collection.";
                 binding.collectionTitleTextView.setText(placeholder);
             }
+        });
+
+        gachaViewModel.getAllItemsByUserID(loggedInUserID).observe(this,gachaItems -> {
+            adapter.submitList(gachaItems);
         });
 
         binding.collectionBackButton.setOnClickListener(new View.OnClickListener() {
