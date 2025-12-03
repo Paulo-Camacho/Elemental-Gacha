@@ -31,7 +31,7 @@ public class AdminLandingPageActivity extends AppCompatActivity {
         binding.AdminLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(AdminEditPullRateActivity.AdminEditPullRateActivityIntentFactory(getApplicationContext()));
+                startActivity(MainActivity.mainActivityFactory(getApplicationContext()));
             }
         });
     }
