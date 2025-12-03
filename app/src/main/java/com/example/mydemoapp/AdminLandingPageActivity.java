@@ -25,13 +25,12 @@ public class AdminLandingPageActivity extends AppCompatActivity {
             }
         });
 
-        // TODO: Make this go to login
         binding = ActivityAdminLandingPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.AdminLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(MainActivity.mainActivityFactory(getApplicationContext()));
+                startActivity(UserActivity.userActivityFactory(getApplicationContext()));
             }
         });
     }
