@@ -7,10 +7,13 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mydemoapp.Database.entities.User;
 import com.example.mydemoapp.databinding.ActivityAdminLandingPageBinding;
 
 public class AdminLandingPageActivity extends AppCompatActivity {
     private ActivityAdminLandingPageBinding binding;
+
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +28,12 @@ public class AdminLandingPageActivity extends AppCompatActivity {
             }
         });
 
-        // TODO: Make this go to login
         binding = ActivityAdminLandingPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.AdminLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(AdminEditPullRateActivity.AdminEditPullRateActivityIntentFactory(getApplicationContext()));
+                startActivity(UserActivity.userActivityFactory(getApplicationContext(), user.getUserID()));
             }
         });
     }

@@ -1,12 +1,14 @@
 package com.example.mydemoapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
@@ -65,9 +67,7 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
         binding.premiumUserLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logout();
-                Intent intent = MainActivity.mainActivityFactory(getApplicationContext());
-                startActivity(intent);
+                showLogoutDialog();
             }
         });
 
@@ -83,13 +83,7 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
         binding.noMorePremiumSadEyesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
-                    user.setPremium(false);
-                }catch(NullPointerException e){
-                    toastMaker("User is null");
-                }
-                Intent intent = UserActivity.userActivityFactory(getApplicationContext(),loggedInUserID);
-                startActivity(intent);
+                showEndPremiumDialog();
             }
         });
 
@@ -109,22 +103,84 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
         return intent;
     }
 
-    private void updateSharedPreference() {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.preference_userId_key),Context.MODE_PRIVATE);
-        SharedPreferences.Editor sharedPref = sharedPreferences.edit();
-        sharedPref.putInt(getString(R.string.preference_userId_key),loggedInUserID);
-        sharedPref.apply();
-    }
-
+    /**
+     * fixes shared preferences so the user is actually logged out
+     */
     private void logout() {
-        loggedInUserID = LOGGED_OUT;
-        updateSharedPreference();
-        getIntent().putExtra(PREMIUM_USER_ACTIVITY_USER_ID,LOGGED_OUT);
-        startActivity((LoginActivity.loginIntentFactory(getApplicationContext())));
+        // Clear SharedPreferences
+        SharedPreferences sharedPreferences = getApplicationContext()
+                .getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(getString(R.string.preference_userId_key), LOGGED_OUT);
+        editor.apply();
+
+        // Go to MainActivity
+        Intent intent = MainActivity.mainActivityFactory(getApplicationContext());
+        startActivity(intent);
+        // prevents back button from returning here
+        finish();
     }
 
     private void toastMaker(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Shows the dialog box for logging out
+     * If user clicks positive button, then the logout() function is called
+     */
+    private void showLogoutDialog() {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(PremiumUserLandingPageActivity.this);
+        final AlertDialog alertDialog = alertBuilder.create();
+        alertBuilder.setMessage("Would you like to logout?");
+        alertBuilder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                logout();
+            }
+        });
+
+        alertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertBuilder.create().show();
+    }
+
+
+    private void showEndPremiumDialog(){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(PremiumUserLandingPageActivity.this);
+        final AlertDialog alertDialog = alertBuilder.create();
+        alertBuilder.setMessage("Are you sure you want to end premium?");
+        alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                endPremium();
+            }
+        });
+
+        alertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertBuilder.create().show();
+    }
+
+    private void endPremium() {
+        try{
+            user.setPremium(false);
+        }catch(NullPointerException e){
+            toastMaker("User is null");
+        }
+        Intent intent = UserActivity.userActivityFactory(getApplicationContext(),loggedInUserID);
+        startActivity(intent);
     }
 
 }
