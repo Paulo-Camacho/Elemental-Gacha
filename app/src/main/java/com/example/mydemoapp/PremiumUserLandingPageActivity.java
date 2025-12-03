@@ -83,13 +83,7 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
         binding.noMorePremiumSadEyesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
-                    user.setPremium(false);
-                }catch(NullPointerException e){
-                    toastMaker("User is null");
-                }
-                Intent intent = UserActivity.userActivityFactory(getApplicationContext(),loggedInUserID);
-                startActivity(intent);
+                showEndPremiumDialog();
             }
         });
 
@@ -109,13 +103,9 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
         return intent;
     }
 
-    private void updateSharedPreference() {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.preference_userId_key),Context.MODE_PRIVATE);
-        SharedPreferences.Editor sharedPref = sharedPreferences.edit();
-        sharedPref.putInt(getString(R.string.preference_userId_key),loggedInUserID);
-        sharedPref.apply();
-    }
-
+    /**
+     * fixes shared preferences so the user is actually logged out
+     */
     private void logout() {
         // Clear SharedPreferences
         SharedPreferences sharedPreferences = getApplicationContext()
@@ -136,6 +126,10 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Shows the dialog box for logging out
+     * If user clicks positive button, then the logout() function is called
+     */
     private void showLogoutDialog() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(PremiumUserLandingPageActivity.this);
         final AlertDialog alertDialog = alertBuilder.create();
@@ -155,6 +149,38 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
         });
 
         alertBuilder.create().show();
+    }
+
+
+    private void showEndPremiumDialog(){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(PremiumUserLandingPageActivity.this);
+        final AlertDialog alertDialog = alertBuilder.create();
+        alertBuilder.setMessage("Are you sure you want to end premium?");
+        alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                endPremium();
+            }
+        });
+
+        alertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertBuilder.create().show();
+    }
+
+    private void endPremium() {
+        try{
+            user.setPremium(false);
+        }catch(NullPointerException e){
+            toastMaker("User is null");
+        }
+        Intent intent = UserActivity.userActivityFactory(getApplicationContext(),loggedInUserID);
+        startActivity(intent);
     }
 
 }
