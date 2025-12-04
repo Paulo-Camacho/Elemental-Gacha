@@ -16,8 +16,11 @@ import androidx.lifecycle.LiveData;
  * @since 3 - Nov - 2025
  */
 import com.example.mydemoapp.Database.GachaRepository;
+import com.example.mydemoapp.Database.entities.GachaItem;
 import com.example.mydemoapp.Database.entities.User;
 import com.example.mydemoapp.databinding.ActivityRollingBinding;
+
+import java.util.List;
 
 public class RollingActivity extends AppCompatActivity {
     ActivityRollingBinding binding;
@@ -26,12 +29,14 @@ public class RollingActivity extends AppCompatActivity {
     private User user;
     private GachaRepository repo;
     private boolean isPremuim = false;
+    private List<GachaItem> pulls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRollingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         loggedInUserID = getIntent().getIntExtra(USER_ACTIVITY_USER_ID,-1);
         Toast.makeText(this,String.valueOf(loggedInUserID)+"input",Toast.LENGTH_SHORT);
         repo = GachaRepository.getRepository(getApplication());
@@ -55,6 +60,17 @@ public class RollingActivity extends AppCompatActivity {
                 }
 
 
+            }
+        });
+        binding.rollButtonRoll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pulls = repo.getAllPulls();
+                int random = (int) (Math.random()*pulls.size()+1);
+                if(pulls.get(random).getRarity().equals("rare")){
+                    random = (int) (Math.random()*pulls.size()+1);
+                }
+                String url = pulls.get(random).getUrl();
             }
         });
     }

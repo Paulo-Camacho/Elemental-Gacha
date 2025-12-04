@@ -83,11 +83,11 @@ public abstract class GachaDatabase extends RoomDatabase {
                 GachaItem three = new GachaItem("8r4", "common","https://cdn2.thecatapi.com/images/8r4.jpg");
                 GachaItem four = new GachaItem("9tu", "common","https://cdn2.thecatapi.com/images/9tu.jpg");
                 GachaItem five = new GachaItem("amo", "common","https://cdn2.thecatapi.com/images/amo.jpg");
-                GachaItem six = new GachaItem("dfq", "common","https://cdn2.thecatapi.com/images/dfq.jpg");
-                GachaItem seven = new GachaItem("MTUxMjcxNw", "common","https://cdn2.thecatapi.com/images/MTUxMjcxNw.jpg");
-                GachaItem eight = new GachaItem("MTk3NTA0OA", "common","https://cdn2.thecatapi.com/images/MTk3NTA0OA.jpg");
-                GachaItem nine = new GachaItem("MTk1NjcyNg", "common","https://cdn2.thecatapi.com/images/MTk1NjcyNg.jpg");
-                GachaItem ten = new GachaItem("ajWdNxBwn", "common","https://cdn2.thecatapi.com/images/ajWdNxBwn.jpg");
+                GachaItem six = new GachaItem("dfq", "rare","https://cdn2.thecatapi.com/images/dfq.jpg");
+                GachaItem seven = new GachaItem("MTUxMjcxNw", "rare","https://cdn2.thecatapi.com/images/MTUxMjcxNw.jpg");
+                GachaItem eight = new GachaItem("MTk3NTA0OA", "rare","https://cdn2.thecatapi.com/images/MTk3NTA0OA.jpg");
+                GachaItem nine = new GachaItem("MTk1NjcyNg", "rare","https://cdn2.thecatapi.com/images/MTk1NjcyNg.jpg");
+                GachaItem ten = new GachaItem("ajWdNxBwn", "rare","https://cdn2.thecatapi.com/images/ajWdNxBwn.jpg");
                 gacha.insert(one);
                 gacha.insert(two);
                 gacha.insert(three);
@@ -98,6 +98,7 @@ public abstract class GachaDatabase extends RoomDatabase {
                 gacha.insert(eight);
                 gacha.insert(nine);
                 gacha.insert(ten);
+
                 UserToItem first = new UserToItem(3,1);
                 UserToItem second = new UserToItem(3,2);
                 connect.insert(first);
