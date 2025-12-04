@@ -57,17 +57,41 @@ public class ExampleInstrumentedTest {
      */
     @Test
     public void writeUserAndReadInList(){
+        //create and insert a user
         String username = "testuser1";
         String password = "testuser1";
         User user = new User(username,password);
 
         userDao.insert(user);
 
+        //read in the user
         List<User> users = userDao.getAllUsers();
         assertNotNull(users.get(0));
         assertEquals(username,users.get(0).getUsername());
-
     }
+
+    /**
+     * Tests deletes the user
+     * Nat :)
+     */
+    @Test
+    public void deleteUserTest(){
+        //create and insert a user
+        String username = "testuser1";
+        String password = "testuser1";
+        User user = new User(username,password);
+
+        userDao.insert(user);
+
+        //delete the user
+        //pretty sure this isn't working because of a live data issue
+        userDao.delete(user);
+        List<User> noUsers = userDao.getAllUsers();
+        assertEquals(true,noUsers.isEmpty());
+    }
+
+
+    @Test
     public void writeItemAndReadInList(){
         String name = "hold";
         String url = "over";
@@ -82,6 +106,8 @@ public class ExampleInstrumentedTest {
         items = itemDao.getAllPulls();
         assertEquals(true,items.isEmpty());
     }
+
+    @Test
     public void writeConnectionAndReadInList(){
         UserToItem item = new UserToItem(1,1);
 

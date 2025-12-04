@@ -32,6 +32,8 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
     private User user;
     private GachaRepository repo;
 
+    private static String titleText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +98,8 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        titleText = binding.premiumUserTitleTextView.getText().toString();
     }
 
     static Intent premiumUserIntentFactory(Context context, int userID){
@@ -182,6 +186,14 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
         }
         Intent intent = UserActivity.userActivityFactory(getApplicationContext(),loggedInUserID);
         startActivity(intent);
+    }
+
+    /**
+     * this exists purely for testing purposes
+     * @return PremiumUser title text
+     */
+    public static String getPremiumUserTitle(){
+        return titleText;
     }
 
 }
