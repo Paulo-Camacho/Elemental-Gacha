@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
@@ -21,115 +20,98 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "GACHA_TEST";
     private static final int LOGGED_OUT = -1;
-    private static final String SAVED_INSTANCE_STATE_USER_ID_KEY = "com.example.mydemoapp.SAVED_INSTANCE_STATE_USER_ID_KEY";
-    private static final String MAIN_ACTIVITY_USER_ID = "com.example.mydemoapp.MAIN_ACTIVITY_USER_ID";
-    private int loggedInUserID = LOGGED_OUT;
-    GachaRepository repo;
 
+    private static final String SAVED_INSTANCE_STATE_USER_ID_KEY =
+            "com.example.mydemoapp.SAVED_INSTANCE_STATE_USER_ID_KEY";
+
+    private static final String MAIN_ACTIVITY_USER_ID =
+            "com.example.mydemoapp.MAIN_ACTIVITY_USER_ID";
+
+    private int loggedInUserID = LOGGED_OUT;
     private User user;
 
+    private ActivityMainBinding binding;
+    private GachaRepository repo;
+
     public static Intent mainActivityFactory(Context context) {
-        Intent intent = new Intent(context, MainActivity.class);
-        return intent;
+        return new Intent(context, MainActivity.class);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.loginButtonMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
-            }
-        });
 
         repo = GachaRepository.getRepository(getApplication());
 
-        // Sanity TEST
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    List<User> users = repo.getUserDAO().getAllUsers();
+        // ---- BUTTON LISTENERS ----
+        binding.loginButtonMain.setOnClickListener(v ->
+                startActivity(LoginActivity.loginIntentFactory(getApplicationContext()))
+        );
 
-                    for (User u : users) {
-                        Log.i(TAG,
-                                "User: " + u.getUsername() +
-                                        " | Admin? " + u.getIsAdmin());
-                    }
-                } catch (Exception e) {
-                    Log.wtf(TAG, "Error reading users", e);
+        binding.newUserButtonMain.setOnClickListener(v ->
+                startActivity(SignupActivity.signupIntentFactory(getApplicationContext()))
+        );
+
+        // DEBUGGING
+        new Thread(() -> {
+            try {
+                List<User> users = repo.getUserDAO().getAllUsers();
+                for (User u : users) {
+                    Log.i(TAG, "User: " + u.getUsername() + " | Admin? " + u.getIsAdmin());
                 }
+            } catch (Exception e) {
+                Log.wtf(TAG, "Error reading users", e);
             }
         }).start();
+
+
         loginUser(savedInstanceState);
 
-        if(loggedInUserID != LOGGED_OUT){
-            showLandingPage();
-        }
-    }
-
-    /**
-     * Hey, so please don't delete this
-     * It shows the correct landing page for the logged in user after they close and reopen the app
-     */
-    private void showLandingPage() {
-        try{
-            LiveData<User> userObserver = repo.getUserByUserID(loggedInUserID);
-            userObserver.observe(this,user -> {
-                this.user = user;
-                if(user.getIsPremium()){
-                    Intent intent = PremiumUserLandingPageActivity.premiumUserIntentFactory(getApplicationContext(), loggedInUserID);
-                    startActivity(intent);
-                }
-                else if (user.getIsAdmin()) {
-                    Intent intent = AdminLandingPageActivity.AdminLandingPageActivityIntentFactory(getApplicationContext());
-                    startActivity(intent);
-                }
-                else{
-                    Intent intent = UserActivity.userActivityFactory(getApplicationContext(), loggedInUserID);
-                    startActivity(intent);
-                }
-            });
-        }catch(NullPointerException e){
-            Toast.makeText(this, "User is null", Toast.LENGTH_SHORT).show();
-            Intent intent = UserActivity.userActivityFactory(getApplicationContext(), loggedInUserID);
+        // ONCE USER IS MADE THEY ARE BROUGHT INTO APP
+        if (loggedInUserID != LOGGED_OUT) {
+            Intent intent = UserActivity.userActivityFactory(
+                    getApplicationContext(),
+                    loggedInUserID
+            );
             startActivity(intent);
         }
     }
 
 
-    private void loginUser(Bundle savedInstanceState){
-        //check shared preference for logged in user
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        //checks if logged in user is in shared preferences?
-        loggedInUserID = sharedPreferences.getInt(getString(R.string.preference_userId_key), LOGGED_OUT);
+    private void loginUser(Bundle savedInstanceState) {
+        SharedPreferences sharedPreferences = getApplicationContext()
+                .getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
 
-        //if user is logged out then try to pull it from there
-        if(loggedInUserID == LOGGED_OUT && savedInstanceState != null && savedInstanceState.containsKey(SAVED_INSTANCE_STATE_USER_ID_KEY)){
-            loggedInUserID = savedInstanceState.getInt(SAVED_INSTANCE_STATE_USER_ID_KEY,LOGGED_OUT);
+        loggedInUserID = sharedPreferences.getInt(
+                getString(R.string.preference_userId_key),
+                LOGGED_OUT
+        );
+
+        if (loggedInUserID == LOGGED_OUT &&
+                savedInstanceState != null &&
+                savedInstanceState.containsKey(SAVED_INSTANCE_STATE_USER_ID_KEY)) {
+
+            loggedInUserID = savedInstanceState.getInt(
+                    SAVED_INSTANCE_STATE_USER_ID_KEY,
+                    LOGGED_OUT
+            );
         }
-        //try to pull it from the intent
-        if(loggedInUserID == LOGGED_OUT){
-            loggedInUserID = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID,LOGGED_OUT);
+
+        if (loggedInUserID == LOGGED_OUT) {
+            loggedInUserID = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
         }
-        //ditch at this point if still logged_out
-        if(loggedInUserID == LOGGED_OUT){
-            return;
-        }
+
+        if (loggedInUserID == LOGGED_OUT) return;
 
         LiveData<User> userObserver = repo.getUserByUserID(loggedInUserID);
-        userObserver.observe(this,user -> {
+        userObserver.observe(this, user -> {
             this.user = user;
-            if(this.user != null){
+            if (this.user != null) {
                 invalidateOptionsMenu();
             }
-
         });
     }
-
-
-
 }

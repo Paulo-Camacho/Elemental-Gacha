@@ -14,9 +14,10 @@
     <string name="admin_tools">Admin Tools</string>
     <string name="admin_login">Admin Login</string>
     <string name="premuim_login">Premuim login</string>
-    <string name="four_legs_good_two_legs_better">Four legs good, two legs better! WHY IS ADMIN NOT WORKING
+    <string name="four_legs_good_two_legs_better">Four legs good, two legs better!
     !</string>
     <string name="preference_file_key">cst338PreferenceFileNameGacha</string>
     <string name="preference_userId_key">cst338PreferenceUserIdKeyGacha</string>
     <string name="cat_gacha_title">Cat Gacha!</string>
+    <string name="sign_up">Sign-up</string>
 </resources>

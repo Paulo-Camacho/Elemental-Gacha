@@ -162,7 +162,6 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void logout() {
-        // Clear SharedPreferences
         SharedPreferences sharedPreferences = getApplicationContext()
                 .getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
 
@@ -170,10 +169,8 @@ public class UserActivity extends AppCompatActivity {
         editor.putInt(getString(R.string.preference_userId_key), LOGGED_OUT);
         editor.apply();
 
-        // Go to MainActivity
         Intent intent = MainActivity.mainActivityFactory(getApplicationContext());
         startActivity(intent);
-        // prevents back button from returning here
         finish();
     }
 
