@@ -70,9 +70,9 @@ public class RollingActivity extends AppCompatActivity {
                 ImageView imageView = findViewById(R.id.outputRollImageView);
                 Picasso.get().load("https://en.wikipedia.org/wiki/Throbber#/media/File:Ajax_loader_metal_512.gif").into(imageView);
                 pulls = repo.getAllPulls();
-                int random = (int) (Math.random()*pulls.size()+1);
+                int random = (int) (Math.random()*pulls.size());
                 if(pulls.get(random).getRarity().equals("rare")){
-                    random = (int) (Math.random()*pulls.size()+1);
+                    random = (int) (Math.random()*pulls.size());
                 }
                 String url = pulls.get(random).getUrl();
                 Picasso.get().load(url).into(imageView);

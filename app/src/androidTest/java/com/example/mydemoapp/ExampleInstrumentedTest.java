@@ -16,8 +16,12 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 import com.example.mydemoapp.Database.GachaDatabase;
+import com.example.mydemoapp.Database.GachaItemDAO;
 import com.example.mydemoapp.Database.UserDAO;
+import com.example.mydemoapp.Database.UserItemDAO;
+import com.example.mydemoapp.Database.entities.GachaItem;
 import com.example.mydemoapp.Database.entities.User;
+import com.example.mydemoapp.Database.entities.UserToItem;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,6 +34,8 @@ import java.util.List;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     private UserDAO userDao;
+    private GachaItemDAO itemDao;
+    private UserItemDAO connectionDao;
     private GachaDatabase database;
 
     @Before
@@ -60,6 +66,32 @@ public class ExampleInstrumentedTest {
         assertNotNull(users.get(0));
         assertEquals(username,users.get(0).getUsername());
 
+    }
+    public void writeItemAndReadInList(){
+        String name = "hold";
+        String url = "over";
+        GachaItem item = new GachaItem(name,"common", url);
+
+        itemDao.insert(item);
+
+        List<GachaItem> items = itemDao.getAllPulls();
+        assertNotNull(items.get(0));
+        assertEquals(name,items.get(0).getItemName());
+        itemDao.delete(item);
+        items = itemDao.getAllPulls();
+        assertEquals(true,items.isEmpty());
+    }
+    public void writeConnectionAndReadInList(){
+        UserToItem item = new UserToItem(1,1);
+
+        connectionDao.insert(item);
+
+        List<UserToItem> items = connectionDao.getAllPulls();
+        assertNotNull(items.get(0));
+        assertEquals(1,items.get(0).getUserId());
+        connectionDao.delete(item);
+        items = connectionDao.getAllPulls();
+        assertEquals(true,items.isEmpty());
     }
 
 
