@@ -26,6 +26,9 @@ public class AdminEditPullRateActivity extends AppCompatActivity {
 
         binding = ActivityAdminEditPullRateBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        repo = GachaRepository.getRepository(getApplication());
+
         binding.AdminBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,7 +36,6 @@ public class AdminEditPullRateActivity extends AppCompatActivity {
             }
         });
 
-        // TODO: Make new activity or add textView in XML to allow data manipulation in this activity.
         binding.AdminPullRateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

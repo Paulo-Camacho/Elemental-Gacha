@@ -1,6 +1,7 @@
 package com.example.mydemoapp;
 
 import android.content.Context;
+import android.content.Intent;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Room;
@@ -94,6 +95,39 @@ public class ExampleInstrumentedTest {
         assertEquals(true,items.isEmpty());
     }
 
+    /**
+     * Andrew
+     * Verify that the AdminLandingPageActivity intent factory
+     * creates an intent that targets AdminLandingPageActivity.
+     */
+    @Test
+    public void adminLandingPageIntentFactoryCreatesCorrectIntent() {
+        Context context = ApplicationProvider.getApplicationContext();
+
+        Intent intent = AdminLandingPageActivity
+                .AdminLandingPageActivityIntentFactory(context);
+
+        assertNotNull(intent);
+        assertNotNull(intent.getComponent());
+        assertEquals(AdminLandingPageActivity.class.getName(), intent.getComponent().getClassName());
+    }
+
+    /**
+     * Andrew
+     * Verify that the AdminEditPullRateActivity intent factory
+     * creates an intent that targets AdminEditPullRateActivity.
+     */
+    @Test
+    public void adminEditPullRateIntentFactoryCreatesCorrectIntent() {
+        Context context = ApplicationProvider.getApplicationContext();
+
+        Intent intent = AdminEditPullRateActivity
+                .AdminEditPullRateActivityIntentFactory(context);
+
+        assertNotNull(intent);
+        assertNotNull(intent.getComponent());
+        assertEquals(AdminEditPullRateActivity.class.getName(), intent.getComponent().getClassName());
+    }
 
     @Test
     public void useAppContext() {
