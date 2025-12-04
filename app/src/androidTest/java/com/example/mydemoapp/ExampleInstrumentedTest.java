@@ -90,6 +90,36 @@ public class ExampleInstrumentedTest {
         assertEquals(true,noUsers.isEmpty());
     }
 
+    /**
+     * testing the premium user landing page intent
+     * Nat :)
+     */
+    @Test
+    public void testPremiumIntent(){
+        Context context = ApplicationProvider.getApplicationContext();
+
+        Intent intent = PremiumUserLandingPageActivity.premiumUserIntentFactory(context,1);
+
+        assertNotNull(intent);
+        assertNotNull(intent.getComponent());
+        assertEquals(PremiumUserLandingPageActivity.class.getName(), intent.getComponent().getClassName());
+    }
+
+    /**
+     * testing the collections page intent
+     * Nat :)
+     */
+    @Test
+    public void testCollectionsIntent(){
+        Context context = ApplicationProvider.getApplicationContext();
+
+        Intent intent = ViewCollectionActivity.viewCollectionIntentFactory(context,1);
+
+        assertNotNull(intent);
+        assertNotNull(intent.getComponent());
+        assertEquals(ViewCollectionActivity.class.getName(), intent.getComponent().getClassName());
+    }
+
 
     @Test
     public void writeItemAndReadInList(){
