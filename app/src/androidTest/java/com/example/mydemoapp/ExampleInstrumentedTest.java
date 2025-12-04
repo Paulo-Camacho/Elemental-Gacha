@@ -44,6 +44,8 @@ public class ExampleInstrumentedTest {
         Context context = ApplicationProvider.getApplicationContext();
         database = Room.inMemoryDatabaseBuilder(context, GachaDatabase.class).build();
         userDao = database.userDAO();
+        itemDao = database.gachaItemDAO();
+        connectionDao = database.userItemDAO();
     }
 
     @After
@@ -119,8 +121,52 @@ public class ExampleInstrumentedTest {
         assertNotNull(intent.getComponent());
         assertEquals(ViewCollectionActivity.class.getName(), intent.getComponent().getClassName());
     }
+    /**
+     * Nicholas
+     * testing Rolling intent
+     */
+    @Test
+    public void testRollingIntent(){
+        Context context = ApplicationProvider.getApplicationContext();
 
+        Intent intent = RollingActivity.rollingActivityFactory(context,1);
 
+        assertNotNull(intent);
+        assertNotNull(intent.getComponent());
+        assertEquals(RollingActivity.class.getName(), intent.getComponent().getClassName());
+    }
+    /**
+     * Nicholas
+     * testing User intent
+     */
+    @Test
+    public void testUserActivityIntent(){
+        Context context = ApplicationProvider.getApplicationContext();
+
+        Intent intent = UserActivity.userActivityFactory(context,1);
+
+        assertNotNull(intent);
+        assertNotNull(intent.getComponent());
+        assertEquals(UserActivity.class.getName(), intent.getComponent().getClassName());
+    }
+    /**
+     * Nicholas
+     * testing Main intent
+     */
+    @Test
+    public void testMainActivityIntent(){
+        Context context = ApplicationProvider.getApplicationContext();
+
+        Intent intent = MainActivity.mainActivityFactory(context);
+
+        assertNotNull(intent);
+        assertNotNull(intent.getComponent());
+        assertEquals(MainActivity.class.getName(), intent.getComponent().getClassName());
+    }
+    /**
+     * Nicholas
+     * Verify insert works for items
+     */
     @Test
     public void writeItemAndReadInList(){
         String name = "hold";
@@ -132,11 +178,11 @@ public class ExampleInstrumentedTest {
         List<GachaItem> items = itemDao.getAllPulls();
         assertNotNull(items.get(0));
         assertEquals(name,items.get(0).getItemName());
-        itemDao.delete(item);
-        items = itemDao.getAllPulls();
-        assertEquals(true,items.isEmpty());
     }
-
+    /**
+     * Nicholas
+     * Verify insert works for usertoitems database
+     */
     @Test
     public void writeConnectionAndReadInList(){
         UserToItem item = new UserToItem(1,1);
@@ -146,11 +192,51 @@ public class ExampleInstrumentedTest {
         List<UserToItem> items = connectionDao.getAllPulls();
         assertNotNull(items.get(0));
         assertEquals(1,items.get(0).getUserId());
-        connectionDao.delete(item);
-        items = connectionDao.getAllPulls();
-        assertEquals(true,items.isEmpty());
     }
+    /**
+     * Nicholas
+     * Verify delete works for databses
+     */
+    @Test
+    public void deleteDatabases(){
+        UserToItem connect = new UserToItem(1,1);
 
+        connectionDao.insert(connect);
+
+        connectionDao.delete(connect);
+        List<UserToItem> items = connectionDao.getAllPulls();
+        assertEquals(true,items.isEmpty());
+        String name = "hold";
+        String url = "over";
+        GachaItem item = new GachaItem(name,"common", url);
+
+        itemDao.insert(item);
+
+        itemDao.delete(item);
+        List<GachaItem> pulls = itemDao.getAllPulls();
+        assertEquals(true,pulls.isEmpty());
+    }
+    /**
+     * Nicholas
+     * Verify that i can update values in the database
+     */
+    @Test
+    public void updateDatabases(){
+        UserToItem connect = new UserToItem(1,1);
+        String name = "hold";
+        String url = "over";
+        GachaItem item = new GachaItem(name,"common", url);
+        User user = new User("Username", "password");
+        assertEquals(1,connect.getUserId());
+        connect.setUserId(2);
+        assertEquals(2,connect.getUserId());
+        assertEquals("password",user.getPassword());
+        user.setPassword("change");
+        assertEquals("change",user.getPassword());
+        assertEquals("common",item.getRarity());
+        item.setRarity("rare");
+        assertEquals("rare", item.getRarity());
+    }
     /**
      * Andrew
      * Verify that the AdminLandingPageActivity intent factory
