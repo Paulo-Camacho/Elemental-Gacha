@@ -27,6 +27,7 @@ public interface UserItemDAO {
     @Query("SELECT itemId FROM " + GachaDatabase.USER_ITEM_TABLE + " WHERE userID = :userId")
     LiveData<List<Integer>> getItemIdByUsers(int userId);
 
-    @Query("SELECT * FROM " + GachaDatabase.USER_ITEM_TABLE + " ORDER BY userId")
-    LiveData<List<GachaItem>> getAllPullsLiveData();
+
+    @Query("SELECT * FROM " + GachaDatabase.USER_ITEM_TABLE + " WHERE userID = :userID")
+    LiveData<List<GachaItem>> getUserPulls(int userID);
 }
