@@ -15,14 +15,6 @@ public class UserToItem {
 
     private int userId;
 
-    public int getUserToItemID() {
-        return userToItemID;
-    }
-
-    public void setUserToItemID(int userToItemID) {
-        this.userToItemID = userToItemID;
-    }
-
     private int itemId;
 
     @Override
@@ -39,6 +31,13 @@ public class UserToItem {
         if (o == null || getClass() != o.getClass()) return false;
         UserToItem that = (UserToItem) o;
         return userToItemID == that.userToItemID && userId == that.userId && itemId == that.itemId;
+    }
+    public int getUserToItemID() {
+        return userToItemID;
+    }
+
+    public void setUserToItemID(int userToItemID) {
+        this.userToItemID = userToItemID;
     }
 
     @Override
