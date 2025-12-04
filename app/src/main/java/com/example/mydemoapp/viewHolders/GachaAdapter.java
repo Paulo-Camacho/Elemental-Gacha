@@ -31,6 +31,7 @@ public class GachaAdapter extends ListAdapter<GachaItem,GachaItemViewHolder> {
     public void onBindViewHolder(@NonNull GachaItemViewHolder holder, int position){
         GachaItem current = getItem(position);
         //this isn't going to work right
+        //TODO: make sure the images are all added
         holder.bind(current.toString());
     }
 

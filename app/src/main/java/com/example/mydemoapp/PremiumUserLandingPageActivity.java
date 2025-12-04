@@ -83,6 +83,7 @@ public class PremiumUserLandingPageActivity extends AppCompatActivity {
         binding.noMorePremiumSadEyesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO: actually make them not premium anymore
                 showEndPremiumDialog();
             }
         });

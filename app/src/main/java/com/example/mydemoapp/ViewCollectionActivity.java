@@ -67,9 +67,8 @@ public class ViewCollectionActivity extends AppCompatActivity {
             }
         });
 
-        gachaViewModel.getAllItemsByUserID(loggedInUserID).observe(this,gachaItems -> {
-            adapter.submitList(gachaItems);
-        });
+
+        gachaViewModel.getAllItemsByUserID(loggedInUserID).observe(this, adapter::submitList);
 
         binding.collectionBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
