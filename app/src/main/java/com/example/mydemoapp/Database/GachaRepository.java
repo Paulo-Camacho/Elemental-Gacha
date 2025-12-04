@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.mydemoapp.Database.entities.GachaItem;
 import com.example.mydemoapp.Database.entities.User;
+import com.example.mydemoapp.Database.entities.UserToItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,5 +116,39 @@ public class GachaRepository {
 
     public LiveData<List<GachaItem>> getAllPullsLiveData() {
         return userItemDAO.getAllPullsLiveData();
+    }
+    // Item Methods
+    public void insertItem(GachaItem item) {
+        GachaDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                gachaDAO.insert(item);
+            }
+        });
+    }
+
+    public GachaItemDAO getGachaItemDAO() {
+        return gachaDAO;
+    }
+
+    public LiveData<GachaItem> getItemByItemID(int itemID) {
+        return gachaDAO.getItemsByItemId(itemID);
+    }
+    //Conncetion Methods
+    public void insertConnection(UserToItem connect) {
+        GachaDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                userItemDAO.insert(connect);
+            }
+        });
+    }
+
+    public UserItemDAO getUserItemDAO() {
+        return userItemDAO;
+    }
+
+    public LiveData<List<Integer>> getConnectionsByUser(int userID) {
+        return userItemDAO.getItemIdByUsers(userID);
     }
 }

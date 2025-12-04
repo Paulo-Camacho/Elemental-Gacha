@@ -25,6 +25,7 @@ public class RollingActivity extends AppCompatActivity {
     private int loggedInUserID;
     private User user;
     private GachaRepository repo;
+    private boolean isPremuim = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +38,23 @@ public class RollingActivity extends AppCompatActivity {
 
         LiveData<User> userObserver = repo.getUserByUserID(loggedInUserID);
         userObserver.observe(this,user -> {
-            this.user = user;
-            Toast.makeText(this,user.toString(),Toast.LENGTH_SHORT);
-            });
+                    this.user = user;
+                    if(user.getIsPremium()){
+                        isPremuim = true;
+                        Toast.makeText(this,"premium", Toast.LENGTH_SHORT).show();
+                    }
+                    Toast.makeText(this, user.toString(), Toast.LENGTH_SHORT).show();
+                });
         binding.backButtonRoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(UserActivity.userActivityFactory(getApplicationContext(),user.getUserID()));
+                if(isPremuim){
+                    startActivity(PremiumUserLandingPageActivity.premiumUserIntentFactory(getApplicationContext(), user.getUserID()));
+                }else{
+                    startActivity(UserActivity.userActivityFactory(getApplicationContext(),user.getUserID()));
+                }
+
+
             }
         });
     }

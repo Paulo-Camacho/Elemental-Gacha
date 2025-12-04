@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
@@ -64,7 +63,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).start();
-
+//        User testuser1 = new User("testuser1","testuser1");
+//        User admin2 = new User("admin2","admin2");
+//        admin2.setAdmin(true);
+//        User premium = new User("premium","premium");
+//        premium.setPremium(true);
+//        repo.insertUser(testuser1);
+//        repo.insertUser(admin2);
+//        repo.insertUser(premium);
         loginUser(savedInstanceState);
 
         if(loggedInUserID != LOGGED_OUT){

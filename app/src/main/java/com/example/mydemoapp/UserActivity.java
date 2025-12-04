@@ -49,7 +49,7 @@ public class UserActivity extends AppCompatActivity {
         LiveData<User> userObserver = repo.getUserByUserID(loggedInUserID);
         userObserver.observe(this,user -> {
             this.user = user;
-            Toast.makeText(this,user.toString(),Toast.LENGTH_SHORT);
+            Toast.makeText(this,user.toString(),Toast.LENGTH_SHORT).show();
             if(user != null){
                 binding.userNameTextView.setText("Welcome "+user.getUsername());
                 if(user.getIsAdmin()){
@@ -89,7 +89,7 @@ public class UserActivity extends AppCompatActivity {
                 startActivity(RollingActivity.rollingActivityFactory(getApplicationContext(), user.getUserID()));
                 }
             });
-        binding.logoutMainButton.setOnClickListener(new View.OnClickListener() {
+        binding.collectionMainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(ViewCollectionActivity.viewCollectionIntentFactory(
@@ -103,7 +103,7 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 logout();
-                startActivity(ViewCollectionActivity.viewCollectionIntentFactory(getApplicationContext(), user.getUserID()));
+                startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
             }
         });
 
