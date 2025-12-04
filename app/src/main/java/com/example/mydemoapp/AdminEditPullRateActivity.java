@@ -28,29 +28,7 @@ public class AdminEditPullRateActivity extends AppCompatActivity {
         });
 
         // TODO: Make new activity or add textView in XML to allow data manipulation in this activity.
-
-        binding.AdminEditDailyPullsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startActivity(AdminLandingPageActivity.AdminLandingPageActivityIntentFactory(getApplicationContext()));
-            }
-        });
-
-        binding.AdminEditDailyPullsButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startActivity(AdminLandingPageActivity.AdminLandingPageActivityIntentFactory(getApplicationContext()));
-            }
-        });
-
         binding.AdminPullRateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startActivity(AdminLandingPageActivity.AdminLandingPageActivityIntentFactory(getApplicationContext()));
-            }
-        });
-
-        binding.AdminPullRateButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //startActivity(AdminLandingPageActivity.AdminLandingPageActivityIntentFactory(getApplicationContext()));

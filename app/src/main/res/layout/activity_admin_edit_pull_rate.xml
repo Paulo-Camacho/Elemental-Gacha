@@ -18,42 +18,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/AdminEditDailyPullsButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:text="Edit Daily Pulls (High)"
-        app:layout_constraintEnd_toStartOf="@id/AdminEditDailyPullsButton2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/AdminEditPageTextView" />
-
-    <Button
-        android:id="@+id/AdminEditDailyPullsButton2"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:text="Edit Daily Pulls (Low)"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/AdminEditDailyPullsButton"
-        app:layout_constraintTop_toBottomOf="@id/AdminEditPageTextView"
-        />
-
-    <Button
         android:id="@+id/AdminPullRateButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:text="Edit Pull Rate (Good)"
-        app:layout_constraintEnd_toStartOf="@id/AdminPullRateButton2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/AdminEditDailyPullsButton"
-        />
-
-    <Button
-        android:id="@+id/AdminPullRateButton2"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:text="Edit Pull Rate (Bad)"
+        android:text="Flip Pull Rates"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/AdminPullRateButton"
-        app:layout_constraintTop_toBottomOf="@id/AdminEditDailyPullsButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/AdminEditPageTextView"
         />
 
     <Button
