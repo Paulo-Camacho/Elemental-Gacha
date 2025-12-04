@@ -160,8 +160,7 @@ public class ExampleInstrumentedTest {
     public void adminLandingPageIntentFactoryCreatesCorrectIntent() {
         Context context = ApplicationProvider.getApplicationContext();
 
-        Intent intent = AdminLandingPageActivity
-                .AdminLandingPageActivityIntentFactory(context);
+        Intent intent = AdminLandingPageActivity.AdminLandingPageActivityIntentFactory(context);
 
         assertNotNull(intent);
         assertNotNull(intent.getComponent());
@@ -177,8 +176,7 @@ public class ExampleInstrumentedTest {
     public void adminEditPullRateIntentFactoryCreatesCorrectIntent() {
         Context context = ApplicationProvider.getApplicationContext();
 
-        Intent intent = AdminEditPullRateActivity
-                .AdminEditPullRateActivityIntentFactory(context);
+        Intent intent = AdminEditPullRateActivity.AdminEditPullRateActivityIntentFactory(context);
 
         assertNotNull(intent);
         assertNotNull(intent.getComponent());
