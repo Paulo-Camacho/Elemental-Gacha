@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
@@ -63,39 +64,39 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).start();
-//        User testuser1 = new User("testuser1","testuser1");
-//        User admin2 = new User("admin2","admin2");
-//        admin2.setAdmin(true);
-//        User premium = new User("premium","premium");
-//        premium.setPremium(true);
-//        repo.insertUser(testuser1);
-//        repo.insertUser(admin2);
-//        repo.insertUser(premium);
         loginUser(savedInstanceState);
 
         if(loggedInUserID != LOGGED_OUT){
-            try{
-                LiveData<User> userObserver = repo.getUserByUserID(loggedInUserID);
-                userObserver.observe(this,user -> {
-                    this.user = user;
-                    if(user.getIsPremium()){
-                        Intent intent = PremiumUserLandingPageActivity.premiumUserIntentFactory(getApplicationContext(), loggedInUserID);
-                        startActivity(intent);
-                    }
-                    else if (user.getIsAdmin()) {
-                        Intent intent = AdminLandingPageActivity.AdminLandingPageActivityIntentFactory(getApplicationContext());
-                        startActivity(intent);
-                    }
-                    else{
-                        Intent intent = UserActivity.userActivityFactory(getApplicationContext(), loggedInUserID);
-                        startActivity(intent);
-                    }
-                });
-            }catch(NullPointerException e){
-                Toast.makeText(this, "User is null", Toast.LENGTH_SHORT).show();
-                Intent intent = UserActivity.userActivityFactory(getApplicationContext(), loggedInUserID);
-                startActivity(intent);
-            }
+            showLandingPage();
+        }
+    }
+
+    /**
+     * Hey, so please don't delete this
+     * It shows the correct landing page for the logged in user after they close and reopen the app
+     */
+    private void showLandingPage() {
+        try{
+            LiveData<User> userObserver = repo.getUserByUserID(loggedInUserID);
+            userObserver.observe(this,user -> {
+                this.user = user;
+                if(user.getIsPremium()){
+                    Intent intent = PremiumUserLandingPageActivity.premiumUserIntentFactory(getApplicationContext(), loggedInUserID);
+                    startActivity(intent);
+                }
+                else if (user.getIsAdmin()) {
+                    Intent intent = AdminLandingPageActivity.AdminLandingPageActivityIntentFactory(getApplicationContext());
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent = UserActivity.userActivityFactory(getApplicationContext(), loggedInUserID);
+                    startActivity(intent);
+                }
+            });
+        }catch(NullPointerException e){
+            Toast.makeText(this, "User is null", Toast.LENGTH_SHORT).show();
+            Intent intent = UserActivity.userActivityFactory(getApplicationContext(), loggedInUserID);
+            startActivity(intent);
         }
     }
 
