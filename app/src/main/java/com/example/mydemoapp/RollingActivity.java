@@ -12,13 +12,15 @@ import androidx.lifecycle.LiveData;
 
 /**
  * the page to roll on
- * Users can: roll to add to thier collection
+ * Users can: roll to add to their collection
  * @author Nicholas Dimitriou
  * @since 3 - Nov - 2025
  */
 import com.example.mydemoapp.Database.GachaRepository;
+import com.example.mydemoapp.Database.UserItemDAO;
 import com.example.mydemoapp.Database.entities.GachaItem;
 import com.example.mydemoapp.Database.entities.User;
+import com.example.mydemoapp.Database.entities.UserToItem;
 import com.example.mydemoapp.databinding.ActivityRollingBinding;
 import com.squareup.picasso.Picasso;
 
@@ -75,6 +77,10 @@ public class RollingActivity extends AppCompatActivity {
                     random = (int) (Math.random()*pulls.size());
                 }
                 String url = pulls.get(random).getUrl();
+                GachaItem added = pulls.get(random);
+                Toast.makeText(RollingActivity.this,String.valueOf(added.getItemId())+"+"+String.valueOf(user.getUserID()),Toast.LENGTH_SHORT).show();
+                UserToItem connection = new UserToItem(user.getUserID(),added.getItemId());
+                repo.insertConnection(connection);
                 Picasso.get().load(url).into(imageView);
             }
         });
