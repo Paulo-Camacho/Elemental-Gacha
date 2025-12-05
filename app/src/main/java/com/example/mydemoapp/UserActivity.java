@@ -1,12 +1,14 @@
 package com.example.mydemoapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
@@ -102,8 +104,7 @@ public class UserActivity extends AppCompatActivity {
         binding.logoutMainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logout();
-                startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+                logoutDialogOption();
             }
         });
 
@@ -160,7 +161,24 @@ public class UserActivity extends AppCompatActivity {
             updateSharedPreference();
         });
     }
-
+    private void logoutDialogOption(){
+        AlertDialog.Builder logout = new AlertDialog.Builder(UserActivity.this);
+        final AlertDialog alertDialog = logout.create();
+        logout.setMessage("You are logging out?");
+        logout.setPositiveButton("Confirm logout", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                logout();
+            }
+        });
+        logout.setNegativeButton("No thank you", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+        logout.create().show();
+    }
     private void logout() {
         SharedPreferences sharedPreferences = getApplicationContext()
                 .getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
