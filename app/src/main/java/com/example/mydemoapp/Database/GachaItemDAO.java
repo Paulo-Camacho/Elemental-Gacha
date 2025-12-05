@@ -21,7 +21,7 @@ public interface GachaItemDAO {
     void delete(GachaItem item);
     @Query("DELETE FROM " + GachaDatabase.GACHA_TABLE)
     void deleteAll();
-    @Query("SELECT * FROM " + GachaDatabase.GACHA_TABLE + " ORDER BY itemId DESC")
+    @Query("SELECT * FROM " + GachaDatabase.GACHA_TABLE + " ORDER BY itemId ASC")
     List<GachaItem> getAllPulls();
     @Query("SELECT * FROM " + GachaDatabase.GACHA_TABLE+ " WHERE itemId == :itemId")
     LiveData<GachaItem> getItemsByItemId(int itemId);

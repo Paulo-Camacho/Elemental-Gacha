@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mydemoapp.R;
+import com.squareup.picasso.Picasso;
 
 /**
  * thingy for the recycler
@@ -23,7 +24,7 @@ public class GachaItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(String url){
-        //TODO: figure out how to make the image show up with the url
+        Picasso.get().load(url).into(gachaViewItem);
     }
 
     static GachaItemViewHolder create(ViewGroup parent){

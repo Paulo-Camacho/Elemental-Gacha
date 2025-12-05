@@ -114,9 +114,6 @@ public class GachaRepository {
         return userDAO.getUserByUsername(username);
     }
 
-    public LiveData<List<GachaItem>> getAllPullsLiveData() {
-        return userItemDAO.getAllPullsLiveData();
-    }
     // Item Methods
     public void insertItem(GachaItem item) {
         GachaDatabase.databaseWriteExecutor.execute(new Runnable() {
@@ -150,5 +147,9 @@ public class GachaRepository {
 
     public LiveData<List<Integer>> getConnectionsByUser(int userID) {
         return userItemDAO.getItemIdByUsers(userID);
+    }
+
+    public LiveData<List<GachaItem>> getUserPulls(int userID) {
+        return userItemDAO.getUserPulls(userID);
     }
 }
