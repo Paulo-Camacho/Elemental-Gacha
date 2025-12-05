@@ -105,8 +105,6 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 logoutDialogOption();
-                //logout();
-                //startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
             }
         });
 
