@@ -33,6 +33,7 @@ public class RollingActivity extends AppCompatActivity {
     private User user;
     private GachaRepository repo;
     private boolean isPremuim = false;
+    private boolean isAdmin = false;
     private List<GachaItem> pulls;
 
     @Override
@@ -42,7 +43,6 @@ public class RollingActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         loggedInUserID = getIntent().getIntExtra(USER_ACTIVITY_USER_ID,-1);
-        Toast.makeText(this,String.valueOf(loggedInUserID)+"input",Toast.LENGTH_SHORT);
         repo = GachaRepository.getRepository(getApplication());
 
         LiveData<User> userObserver = repo.getUserByUserID(loggedInUserID);
@@ -52,12 +52,15 @@ public class RollingActivity extends AppCompatActivity {
                         isPremuim = true;
                         Toast.makeText(this,"premium", Toast.LENGTH_SHORT).show();
                     }
+                    if(user.getIsAdmin()){
+                        isAdmin = true;
+                    }
                     Toast.makeText(this, user.toString(), Toast.LENGTH_SHORT).show();
                 });
         binding.backButtonRoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isPremuim){
+                if(isPremuim && !isAdmin){
                     startActivity(PremiumUserLandingPageActivity.premiumUserIntentFactory(getApplicationContext(), user.getUserID()));
                 }else{
                     startActivity(UserActivity.userActivityFactory(getApplicationContext(),user.getUserID()));
