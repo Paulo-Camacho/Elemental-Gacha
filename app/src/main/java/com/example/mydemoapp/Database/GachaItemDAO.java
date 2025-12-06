@@ -31,6 +31,6 @@ public interface GachaItemDAO {
      * SET parameter_column = @new_value
      * WHERE id = @item_id;
      */
-    @Query("UPDATE " + GachaDatabase.GACHA_TABLE + " set rarity = :rarity WHERE itemId == :itemId")
+    @Query("UPDATE " + GachaDatabase.GACHA_TABLE + " set rarity = :rarity WHERE itemId == :itemID")
     void setRarityById(int itemID, String rarity);
 }
