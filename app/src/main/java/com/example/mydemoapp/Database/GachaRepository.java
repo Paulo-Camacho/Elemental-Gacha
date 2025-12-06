@@ -70,6 +70,15 @@ public class GachaRepository {
         });
     }
 
+    public void setRarityById(int itemID, String rarity){
+        GachaDatabase.databaseWriteExecutor.execute((new Runnable() {
+            @Override
+            public void run() {
+                gachaDAO.setRarityById(itemID,rarity);
+            }
+        }));
+    }
+
     // GET all pulls, THIS IS NOT LIVE YET
     public ArrayList<GachaItem> getAllPulls() {
 

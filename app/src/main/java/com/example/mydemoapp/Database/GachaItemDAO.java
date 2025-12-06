@@ -25,4 +25,16 @@ public interface GachaItemDAO {
     List<GachaItem> getAllPulls();
     @Query("SELECT * FROM " + GachaDatabase.GACHA_TABLE+ " WHERE itemId == :itemId")
     LiveData<GachaItem> getItemsByItemId(int itemId);
+
+    // getRarityById
+    // setItemById
+    /**
+     * UPDATE your_table_name
+     * SET parameter_column = @new_value
+     * WHERE id = @item_id;
+     */
+    @Query("UPDATE " + GachaDatabase.GACHA_TABLE + " set rarity = :rarity WHERE itemId == :itemId")
+    void setRarityById(int itemID, String rarity);
+
+    // setRarityById
 }
