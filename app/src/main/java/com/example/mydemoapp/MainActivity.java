@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         repo = GachaRepository.getRepository(getApplication());
 
-        // ---- BUTTON LISTENERS ----
+        // BUTTON LISTENERS
         binding.loginButtonMain.setOnClickListener(v ->
                 startActivity(LoginActivity.loginIntentFactory(getApplicationContext()))
         );
@@ -56,22 +55,23 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(SignupActivity.signupIntentFactory(getApplicationContext()))
         );
 
-        // DEBUGGING
+        // DEBUG
         new Thread(() -> {
             try {
                 List<User> users = repo.getUserDAO().getAllUsers();
                 for (User u : users) {
-                    Log.i(TAG, "User: " + u.getUsername() + " | Admin? " + u.getIsAdmin());
+                    Log.i(TAG, "User: " + u.getUsername() +
+                            " | Admin? " + u.getIsAdmin() +
+                            " | Premium? " + u.getIsPremium());
                 }
             } catch (Exception e) {
                 Log.wtf(TAG, "Error reading users", e);
             }
         }).start();
 
-
+        // LOAD LOGGED IN USER (if app reopened)
         loginUser(savedInstanceState);
 
-        // ONCE USER IS MADE THEY ARE BROUGHT INTO APP
         if (loggedInUserID != LOGGED_OUT) {
             showLandingPage();
         }
@@ -82,28 +82,37 @@ public class MainActivity extends AppCompatActivity {
      * It shows the correct landing page for the logged in user after they close and reopen the app
      */
     private void showLandingPage() {
-        try{
+        try {
             LiveData<User> userObserver = repo.getUserByUserID(loggedInUserID);
-            userObserver.observe(this,user -> {
+            userObserver.observe(this, user -> {
                 this.user = user;
-                if(user.getIsPremium()){
-                    Intent intent = PremiumUserLandingPageActivity.premiumUserIntentFactory(getApplicationContext(), loggedInUserID);
-                    startActivity(intent);
+
+                if (user == null) {
+                    Toast.makeText(this, "User not found.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-                else{
-                    Intent intent = UserActivity.userActivityFactory(getApplicationContext(), loggedInUserID);
+
+                if (user.getIsPremium() && !user.getIsAdmin()) {
+                    // Premium users → Premium landing
+                    Intent intent = PremiumUserLandingPageActivity
+                            .premiumUserIntentFactory(getApplicationContext(), loggedInUserID);
+                    startActivity(intent);
+                } else {
+                    // Normal + Admin → UserActivity
+                    Intent intent = UserActivity.userActivityFactory(
+                            getApplicationContext(), loggedInUserID
+                    );
                     startActivity(intent);
                 }
             });
-        }catch(NullPointerException e){
-            Toast.makeText(this, "User is null", Toast.LENGTH_SHORT).show();
-            Intent intent = UserActivity.userActivityFactory(getApplicationContext(), loggedInUserID);
-            startActivity(intent);
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Routing error.", Toast.LENGTH_SHORT).show();
         }
     }
 
-
     private void loginUser(Bundle savedInstanceState) {
+
         SharedPreferences sharedPreferences = getApplicationContext()
                 .getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
 
@@ -112,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 LOGGED_OUT
         );
 
+        // RESTORING FROM SAVED BUNDLE
         if (loggedInUserID == LOGGED_OUT &&
                 savedInstanceState != null &&
                 savedInstanceState.containsKey(SAVED_INSTANCE_STATE_USER_ID_KEY)) {
@@ -122,13 +132,18 @@ public class MainActivity extends AppCompatActivity {
             );
         }
 
+        // RESTORING FROM INTENT
         if (loggedInUserID == LOGGED_OUT) {
-            loggedInUserID = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
+            loggedInUserID = getIntent().getIntExtra(
+                    MAIN_ACTIVITY_USER_ID,
+                    LOGGED_OUT
+            );
         }
 
         if (loggedInUserID == LOGGED_OUT) return;
 
         LiveData<User> userObserver = repo.getUserByUserID(loggedInUserID);
+
         userObserver.observe(this, user -> {
             this.user = user;
             if (this.user != null) {

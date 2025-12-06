@@ -27,22 +27,13 @@ public class LoginActivity extends AppCompatActivity {
 
         repository = GachaRepository.getRepository(getApplication());
 
-        // LOGIN button
-        binding.addUserButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifyUser();
-            }
-        });
+        // LOGIN BUTTON
+        binding.addUserButton.setOnClickListener(v -> verifyUser());
 
-        // Return to main menu button
-        binding.backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = MainActivity.mainActivityFactory(getApplicationContext());
-                startActivity(intent);
-                finish();
-            }
+        // BACK BUTTON
+        binding.backButton.setOnClickListener(v -> {
+            startActivity(MainActivity.mainActivityFactory(getApplicationContext()));
+            finish();
         });
     }
 
@@ -51,49 +42,60 @@ public class LoginActivity extends AppCompatActivity {
         String password = binding.passwordInputEditText.getText().toString().trim();
 
         if (username.isEmpty()) {
-            toastMaker("Username may not be blank.");
+            toast("Username may not be blank.");
             return;
         }
 
         LiveData<User> userObserver = repository.getUserByUsername(username);
 
         userObserver.observe(this, user -> {
-            if (user != null) {
 
-                if (password.equals(user.getPassword())) {
-
-                    saveLoggedInUser(user.getUserID());
-
-                    toastMaker("Login successful!");
-
-                    Intent intent = UserActivity.userActivityFactory(
-                            getApplicationContext(),
-                            user.getUserID()
-                    );
-                    startActivity(intent);
-                    finish();
-                } else {
-                    toastMaker("Invalid password.");
-                    binding.passwordInputEditText.requestFocus();
-                }
-
-            } else {
-                toastMaker(username + " is not a valid username.");
+            if (user == null) {
+                toast(username + " is not a valid username.");
                 binding.usernameInputEditText.requestFocus();
+                return;
             }
+
+            if (!password.equals(user.getPassword())) {
+                toast("Invalid password.");
+                binding.passwordInputEditText.requestFocus();
+                return;
+            }
+
+            // SUCCESSFUL LOGIN
+            saveLoggedInUser(user.getUserID());
+            toast("Login successful!");
+
+            if (user.getIsPremium() && !user.getIsAdmin()) {
+                // PREMIUM
+                Intent intent = PremiumUserLandingPageActivity
+                        .premiumUserIntentFactory(getApplicationContext(), user.getUserID());
+                startActivity(intent);
+            } else {
+                // NORMAL USER OR ADMIN
+                Intent intent = UserActivity.userActivityFactory(
+                        getApplicationContext(),
+                        user.getUserID()
+                );
+                startActivity(intent);
+            }
+
+            finish();
         });
     }
 
     private void saveLoggedInUser(int userId) {
-        SharedPreferences sharedPreferences = getApplicationContext()
-                .getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(
+                getString(R.string.preference_file_key),
+                MODE_PRIVATE
+        );
 
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(getString(R.string.preference_userId_key), userId);
-        editor.apply();
+        sharedPreferences.edit()
+                .putInt(getString(R.string.preference_userId_key), userId)
+                .apply();
     }
 
-    private void toastMaker(String message) {
+    private void toast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
