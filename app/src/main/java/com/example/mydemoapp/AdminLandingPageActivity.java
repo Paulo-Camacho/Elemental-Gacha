@@ -21,6 +21,7 @@ public class AdminLandingPageActivity extends AppCompatActivity {
 
         binding = ActivityAdminLandingPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         binding.AdminRollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -28,8 +29,6 @@ public class AdminLandingPageActivity extends AppCompatActivity {
             }
         });
 
-        binding = ActivityAdminLandingPageBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
         binding.AdminLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
