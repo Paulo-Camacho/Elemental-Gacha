@@ -108,6 +108,36 @@ public class ExampleInstrumentedTest {
     }
 
     /**
+     * testing login intent
+     * Nat :)
+     */
+    @Test
+    public void testLoginIntent(){
+        Context context = ApplicationProvider.getApplicationContext();
+
+        Intent intent = LoginActivity.loginIntentFactory(context);
+
+        assertNotNull(intent);
+        assertNotNull(intent.getComponent());
+        assertEquals(LoginActivity.class.getName(), intent.getComponent().getClassName());
+    }
+
+    /**
+     * testing the signup intent
+     * Nat :)
+     */
+    @Test
+    public void testSignUpIntent(){
+        Context context = ApplicationProvider.getApplicationContext();
+
+        Intent intent = SignupActivity.signupIntentFactory(context);
+
+        assertNotNull(intent);
+        assertNotNull(intent.getComponent());
+        assertEquals(SignupActivity.class.getName(), intent.getComponent().getClassName());
+    }
+
+    /**
      * testing the collections page intent
      * Nat :)
      */
